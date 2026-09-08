@@ -1,5 +1,6 @@
 package com.retroavalon.notifysounds
 
+import android.app.Notification
 import android.media.MediaPlayer
 import android.net.Uri
 import android.service.notification.NotificationListenerService
@@ -27,6 +28,12 @@ class NotifySoundService : NotificationListenerService() {
 
         val targetPackage = Prefs.getTargetPackage(applicationContext) ?: return
         if (sbn.packageName != targetPackage) return
+
+        // Messaging apps (WhatsApp included) post a real per-message notification AND
+        // an invisible "group summary" notification for the same conversation — both
+        // land in onNotificationPosted. Without this check every message counts twice.
+        val isGroupSummary = (sbn.notification.flags and Notification.FLAG_GROUP_SUMMARY) != 0
+        if (isGroupSummary) return
 
         val now = System.currentTimeMillis()
         val timeoutMs = Prefs.getTimeoutSeconds(applicationContext) * 1000L
