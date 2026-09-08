@@ -13,6 +13,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -379,7 +380,7 @@ fun AppPickerDialog(onDismiss: () -> Unit, onSelected: (String) -> Unit) {
 fun LocalContextHolder(): Context = androidx.compose.ui.platform.LocalContext.current
 
 fun Modifier.clickableSimple(onClick: () -> Unit): Modifier =
-    this.then(androidx.compose.foundation.clickable(onClick = onClick))
+    this.clickable(onClick = onClick)
 
 fun isListenerEnabled(context: Context): Boolean {
     val enabledListeners = Settings.Secure.getString(
