@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -379,7 +380,7 @@ fun AppPickerDialog(onDismiss: () -> Unit, onSelected: (String) -> Unit) {
 fun LocalContextHolder(): Context = androidx.compose.ui.platform.LocalContext.current
 
 fun Modifier.clickableSimple(onClick: () -> Unit): Modifier =
-    this.then(androidx.compose.foundation.clickable(onClick = onClick))
+    this.then(clickable(onClick = onClick))
 
 fun isListenerEnabled(context: Context): Boolean {
     val enabledListeners = Settings.Secure.getString(
